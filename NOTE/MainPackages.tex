@@ -1,0 +1,166 @@
+%!TEX root = PhDThesis_Gleb_Lukicov.tex
+% -------- Packages --------
+\usepackage[utf8]{inputenc}
+
+%%%%%%%%% Fonts and topgraphy
+\usepackage[english]{babel} %topography
+\usepackage{xspace} % /xspace command in macros 
+%%%%%%%%%
+
+%%%%%%%%%%%%% Not used but useful packages 
+% \usepackage{feynmf} % Feynamn diagrams  
+% \usepackage{xcolor} % \textcolor{colour}{text}
+% \usepackage{isorot} % The isorot package allows you to put things sideways (or indeed, at any angle) on a page.
+% \usepackage{etoolbox} % If you're getting into defining your own commands, you might want 
+% \usepackage[T1]{fontenc}  % set font here 
+% \usepackage{tgbonum}  % set font here 
+% \addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+% \addto\captionsenglish{\renewcommand{\tablename}{Tab.}}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%%%%%%% General %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% set depth of sub-sub..sections
+\setcounter{secnumdepth}{3}  % In the document itself  
+\setcounter{tocdepth}{1}   % in the ToC 
+
+\usepackage{setspace} %The setspace package lets you use 1.5-sized or double line spacing.
+\setstretch{1.5}
+
+%%%%
+% Sharing online watermark
+% \usepackage{draftwatermark}
+% \SetWatermarkText{\shortstack{\textsc{Copyright: Gleb Lukicov}\\ \strut \\ \strut \\ \strut}}
+% \SetWatermarkScale{0.5}
+% \SetWatermarkAngle{90}
+%%%
+
+\usepackage{ifdraft}
+\ifdraft{
+ % \usepackage{refcheck} % check labelled but unused floats, tables, etc. 
+ \usepackage{draftwatermark}
+ \SetWatermarkText{\shortstack{\textsc{Draft Mode}\\ \strut \\ \strut \\ \strut}}
+ \SetWatermarkScale{0.5}
+ \SetWatermarkAngle{90}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliography, HyperRef, and Gloassary  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some hacks are necessary to make bibentry and hyperref play nicely.
+% See: http://tex.stackexchange.com/questions/65348/clash-between-bibentry-and-hyperref-with-bibstyle-elsart-harv
+\usepackage{bibentry}
+\makeatletter\let\saved@bibitem\@bibitem\makeatother
+\bibliographystyle{phreport} % change to phaip for no titles in articles 
+% more styles are here (e.g /usr/local/texlive/2018/texmf-dist/bibtex/bst/beebe)
+\renewcommand\bf{\bfseries}  % fixes bbl bf warning 
+% smaller vertical spacing between references in bibliography
+\let\OLDthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \OLDthebibliography{#1}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{3pt plus 0.3ex}
+}
+
+\usepackage[pdftex,hidelinks]{hyperref} % hidelinks=removes the annoying red boxed 
+\usepackage{bookmark}  % place extra bookmarks to be seen in the PDF \pdfbookmark[<level>]{<title>}{<dest>}
+\usepackage[printonlyused, withpage]{acronym} % [nolist, withpage, nohyperlinks] are good options 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Math %%%%%%%%%%%%%%
+\usepackage{amsmath} %  maths, 
+\usepackage{subdepth} % forces all subscripts at same hight
+\usepackage{siunitx} % \SI{100}{\micro\meter} = 100 um 
+\usepackage{mathtools} % extension for amsmath 
+\usepackage{amsfonts} % extra symbols 
+\usepackage{amssymb}  % extra symbols 
+\usepackage{gensymb} %  define symbols
+\usepackage{textcomp} % define symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% References, Graphs, Tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[capitalise]{cleveref} % use full capitals for references 
+\Crefname{section}{Section}{Sections}
+\Crefname{chapter}{Chapter}{Chapters}
+\Crefname{equation}{Equation}{Equations}
+\Crefname{figure}{Figure}{Figures}
+\Crefname{tabular}{Table}{Tables}
+\usepackage{apptools}
+\crefname{subappendix}{\IfAppendix{Section}{Appendix}}{\IfAppendix{Sections}{Appendices}s} % (!) the "s" is intentional
+\usepackage{notoccite} % removes citing counting from LoF etc.
+
+% \creflabelformat{equation}{#2#1#3} % if removing () around equation reference if preferred
+\usepackage{graphicx} % \includegraphics command,
+\usepackage{float} %  HERE, with the [H] option to the float environment.
+\usepackage[format=hang,font=small,labelfont=bf]{caption} % caption formatting.
+\usepackage{sidecap} % allows vertical captions 
+\usepackage{subfig} % \subfloat  
+\usepackage{array} % column formatting of tables 
+\usepackage{multirow} % The multirow package adds the option to make cells span rows in tables.
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs nice tables 
+\usepackage{tabularx} % advanced tables 
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% These settings are from: http://mintaka.sdsu.edu/GF/bibliog/latex/floats.html
+% See p.105 of "TeX Unbound" for suggested values. See pp. 199-200 of Lamport's "LaTeX" book for details.
+\renewcommand{\topfraction}{0.9}    % max fraction of floats at top
+\renewcommand{\bottomfraction}{0.8} % max fraction of floats at bottom
+%   Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}     % 2 may work better
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9} % fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}  % allow minimal text w. figs
+% Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.7}  % require fuller float pages
+% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.7}   % require fuller float pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% Visual/Fancy %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr} % section title and page numbering at the top 
+\pagestyle{fancy}
+% \fancyhead[CO,C]{\normalfont \rmfamily \rightmark \slshape \hfill \thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RO]{\thepage}
+\fancyfoot{}
+\setlength\headheight{15.0pt}
+
+%Bold math in titles etc. 
+\makeatletter
+\g@addto@macro\bfseries\boldmath 
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%Ease-of-life%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{dirtytalk} % \say{} = " " 
+\usepackage{nicefrac} % \nicefrac{1}{2} = 1/2 "in-line"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%   Code snippet insertion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%       
+\usepackage{listings}
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
